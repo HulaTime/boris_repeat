@@ -2,14 +2,21 @@ require_relative 'bike'
 
 class DockingStation
 
-  attr_reader :bike
+  attr_reader :bikes
+
+  def initialize
+    @bikes = []
+  end
+
 
   def release_bike
-    Bike.new
+    fail 'no bikes available' if @bikes.count == 0
+    @bikes.last
   end
 
   def dock(bike)
-    @bike = bike
+    fail 'station at capacity' if @bikes.count == 20
+    @bikes << bike
   end
 
 end
