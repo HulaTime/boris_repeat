@@ -19,4 +19,7 @@ class DockingStation
     @bikes << bike
   end
 
+  private
+  
+
 end

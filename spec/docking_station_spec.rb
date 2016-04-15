@@ -9,9 +9,8 @@ describe DockingStation do
   it { is_expected.to respond_to(:dock).with(1).argument }
   it { is_expected.to respond_to(:bikes) }
 
-  it '#bikes should return the docked bike' do
-    bike = Bike.new
-    expect(subject.dock(bike)).to eq(subject.bikes)
+  it '#bikes should return the docked bikes' do
+    expect(subject.dock(Bike.new)).to eq(subject.bikes)
   end
 
   describe '#release_bike'do
@@ -29,11 +28,13 @@ describe DockingStation do
 
   describe '#dock' do
     it 'should raise an error if the docking station is full' do
+      
       # bike = Bike.new     # these lines are unnecessary since
       # bike2 = Bike.new    # we can just put Bike.new as both parameters
       #subject.dock(Bike.new)
       #expect { subject.dock(Bike.new) }.to raise_error 'docking station is full'
       # above test becomes redundant now that we want a greater capacity
+      
       20.times { subject.dock(Bike.new ) }
       expect { subject.dock(Bike.new) }.to raise_error 'station at capacity'
     end
@@ -42,7 +43,7 @@ describe DockingStation do
 
     it 'should return value of the bike passed as an argument' do
       bike = Bike.new
-      expect(subject.dock(bike)).to eq(bike)
+      expect((subject.dock bike).last).to eq(subject.release_bike)
     end
   end
 
