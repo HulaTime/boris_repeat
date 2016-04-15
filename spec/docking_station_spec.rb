@@ -39,8 +39,6 @@ describe DockingStation do
       expect { subject.dock(Bike.new) }.to raise_error 'station at capacity'
     end
 
-
-
     it 'should return value of the bike passed as an argument' do
       bike = Bike.new
       expect((subject.dock bike).last).to eq(subject.release_bike)
