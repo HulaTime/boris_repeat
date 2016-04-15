@@ -8,7 +8,6 @@ class DockingStation
     @bikes = []
   end
 
-
   def release_bike
     fail 'no bikes available' if empty?
     bikes.last
@@ -20,8 +19,7 @@ class DockingStation
   end
 
   private
-  
-  
+ 
   def full?
     bikes.count >= 20
   end
