@@ -23,13 +23,14 @@ describe DockingStation do
   it { is_expected.to respond_to(:dock).with(1).argument }
   
   # it { is_expected.to respond_to(:bikes) }
-                                                                #bikes is now a private accessor
+                                                                #bikes is now a private reader
   #it '#bikes should return the docked bikes' do
   #  expect(subject.dock(Bike.new)).to eq(subject.bikes)
   #end
 
   describe '#release_bike'do
-    it 'should give a bike' do
+    it 'should give a working bike' do
+      allow(bike).to receive(:working?).and_return(true)
       subject.dock(bike)
       expect(subject.release_bike).to eq(bike)
     end
@@ -39,8 +40,7 @@ describe DockingStation do
     end
     
     it 'should not release broken bikes' do
-         #dependecy
-      bike.report_broken
+      allow(bike).to receive(:working?).and_return(false)
       subject.dock(bike)
       expect { subject.release_bike }.to raise_error 'bike is broken'
     end
@@ -57,12 +57,11 @@ describe DockingStation do
       # above test becomes redundant now that we want a greater capacity
       
       subject.capacity.times { subject.dock(bike) }  #dependecy
-      expect { subject.dock(bike) }.to raise_error 'station at capacity'    #dependecy
+      expect { subject.dock(bike) }.to raise_error 'station at capacity'  
     end
 
-    it 'should return value of the bike passed as an argument' do
-             #dependecy
-      expect((subject.dock bike).last).to eq(subject.release_bike)
+    it 'should return value of the bike passed as an argument' do   
+      expect((subject.dock(bike)).last).to eq(bike)
     end
   end
 
