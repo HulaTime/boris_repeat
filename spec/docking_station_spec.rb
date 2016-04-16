@@ -1,7 +1,9 @@
 require 'docking_station'
 
 describe DockingStation do
-
+  
+  let(:bike) {double :bike}
+  
   it 'has a default capacity' do
     expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
   end
@@ -13,12 +15,13 @@ describe DockingStation do
   describe 'initialization' do
     it 'has a variable capacity' do
       docking_station = DockingStation.new(50)
-      50.times { docking_station.dock Bike.new }
-      expect{ docking_station.dock Bike.new }.to raise_error 'station at capacity'
+      50.times { docking_station.dock(bike) }  
+      expect{ docking_station.dock(bike) }.to raise_error 'station at capacity'  #dependecy
     end
   end
 
   it { is_expected.to respond_to(:dock).with(1).argument }
+  
   # it { is_expected.to respond_to(:bikes) }
                                                                 #bikes is now a private accessor
   #it '#bikes should return the docked bikes' do
@@ -27,7 +30,6 @@ describe DockingStation do
 
   describe '#release_bike'do
     it 'should give a bike' do
-      bike = Bike.new
       subject.dock(bike)
       expect(subject.release_bike).to eq(bike)
     end
@@ -37,7 +39,7 @@ describe DockingStation do
     end
     
     it 'should not release broken bikes' do
-      bike = Bike.new
+         #dependecy
       bike.report_broken
       subject.dock(bike)
       expect { subject.release_bike }.to raise_error 'bike is broken'
@@ -54,12 +56,12 @@ describe DockingStation do
       #expect { subject.dock(Bike.new) }.to raise_error 'docking station is full'
       # above test becomes redundant now that we want a greater capacity
       
-      subject.capacity.times { subject.dock(Bike.new ) }
-      expect { subject.dock(Bike.new) }.to raise_error 'station at capacity'
+      subject.capacity.times { subject.dock(bike) }  #dependecy
+      expect { subject.dock(bike) }.to raise_error 'station at capacity'    #dependecy
     end
 
     it 'should return value of the bike passed as an argument' do
-      bike = Bike.new
+             #dependecy
       expect((subject.dock bike).last).to eq(subject.release_bike)
     end
   end
