@@ -35,7 +35,7 @@ describe DockingStation do
       #expect { subject.dock(Bike.new) }.to raise_error 'docking station is full'
       # above test becomes redundant now that we want a greater capacity
       
-      20.times { subject.dock(Bike.new ) }
+      DockingStation::DEFAULT_CAPACITY.times { subject.dock(Bike.new ) }
       expect { subject.dock(Bike.new) }.to raise_error 'station at capacity'
     end
 
