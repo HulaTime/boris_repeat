@@ -24,7 +24,7 @@ describe DockingStation do
   
   # it { is_expected.to respond_to(:bikes) }
                                                                 #bikes is now a private reader
-  #it '#bikes should return the docked bikes' do
+  # it '#bikes should return the docked bikes' do
   #  expect(subject.dock(Bike.new)).to eq(subject.bikes)
   #end
 
